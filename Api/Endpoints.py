@@ -1,5 +1,4 @@
 import json
-
 import uvicorn
 from fastapi import FastAPI
 from Api.Models import CodeSnippet, CodeRequest, CodeTranslation,ProcessInputRequest,StyleCode
@@ -8,7 +7,7 @@ from Api.agent import agent_executor
 
 app = FastAPI()
 
-#So i have 4 general endpoints like in the requirements and then one "King" endpoint which sends the input and (if present) language to agent for
+#So i have 4 general endpoints like in the requirements and then one "Main" endpoint which sends the input and (if present) language to agent for
 #him to decide what operation needs to be performed and then triggering the needed function.I dont really need those 4 as an endpoints,i could have been fine with func
 #but its in the requirements.
 
