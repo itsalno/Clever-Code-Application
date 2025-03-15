@@ -15,6 +15,7 @@ def extract_language(input: str) -> str:
         return match.group(2).lower()
     return None
 
+#I chooes llama3.2 as a decider AI here because from the responses it generated i can tell its better at decision making then deepseek.
 llm1 = OllamaLLM(model="llama3.2")
 
 system_prompt = """
@@ -44,7 +45,8 @@ agent_chain = RunnableSequence(
     prompt_template | llm1 | StrOutputParser()
 )
 
-
+#This function serves as a decider based on the input which action to perform.
+# So llama3.2 takes the imput and decides what it should send the input next.
 def agent_executor(input: str,language: str):
     print(f"Agent input: {input}, Language: {language}")
 

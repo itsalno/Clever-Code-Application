@@ -1,6 +1,9 @@
 import flet as ft
 import requests
 
+#My UI class nothing to complex.I have 2 dropdowns one for translating and one for generating.There is also input field and then
+#send_input function which basically fires the /process_input with the users input and language if exists.Since i have 2 dropdowns,
+#i decide which language to send based on the selected option.
 def main(page: ft.Page):
     page.title = "Clever Code App"
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
@@ -9,7 +12,7 @@ def main(page: ft.Page):
     user_input = ft.TextField(hint_text="Enter code or description", multiline=True)
     generating_language_dropdown = ft.Dropdown(
         options=[
-            ft.dropdown.Option(""),
+            ft.dropdown.Option("", "None"),  # Empty option with a label
             ft.dropdown.Option("python"),
             ft.dropdown.Option("java"),
             ft.dropdown.Option("javascript"),
@@ -26,7 +29,7 @@ def main(page: ft.Page):
     )
     translating_language_dropdown = ft.Dropdown(
         options=[
-            ft.dropdown.Option(""),
+            ft.dropdown.Option("", "None"),
             ft.dropdown.Option("python"),
             ft.dropdown.Option("java"),
             ft.dropdown.Option("javascript"),
@@ -57,11 +60,43 @@ def main(page: ft.Page):
 
     def send_input(e):
         try:
+            generating_language = generating_language_dropdown.value
+            translating_language = translating_language_dropdown.value
 
-            response = requests.post(
-                "http://127.0.0.1:8000/process_input",
-                json={"input": user_input.value,"language": generating_language_dropdown.value},
-            )
+            if generating_language and not translating_language:
+
+                response = requests.post(
+                    "http://127.0.0.1:8000/process_input",
+                    json={
+                        "input": user_input.value,
+                        "language": generating_language,
+
+                    }
+                )
+            elif translating_language and not generating_language:
+
+                response = requests.post(
+                    "http://127.0.0.1:8000/process_input",
+                    json={
+                        "input": user_input.value,
+                        "language": translating_language,
+
+                    }
+                )
+            elif not generating_language and not translating_language:
+
+                response = requests.post(
+                    "http://127.0.0.1:8000/process_input",
+                    json={
+                        "input": user_input.value,
+                        "language": "",
+
+                    }
+                )
+            else:
+
+                output.value = "Error: Please select only one language (generating or translating)."
+                return
 
 
             print(f"API response: {response.text}")
@@ -98,7 +133,7 @@ def main(page: ft.Page):
             send_button,
             ft.Container(
                 content=scrollable_output,
-                border=ft.border.all(1, ft.colors.GREY_400),
+                border=ft.border.all(1, ft.Colors.GREY_400),
                 padding=10,
                 expand=True,
             ),
