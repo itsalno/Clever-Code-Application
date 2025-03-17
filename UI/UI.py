@@ -66,11 +66,9 @@ def main(page: ft.Page):
 
     def save_preferences(e):
         try:
-            # Get the user's input
             indentation = indentation_input.value
             naming_convention = naming_convention_input.value
 
-            # Send the preferences to the API
             response = requests.post(
                 "http://127.0.0.1:8000/style_preferences",
                 json={
@@ -79,13 +77,10 @@ def main(page: ft.Page):
                 }
             )
 
-            # Log the raw API response
             print(f"API response: {response.text}")
 
-            # Parse the JSON response
             result = response.json()
 
-            # Display the result
             output.value = result.get("message", "Preferences saved successfully.")
 
         except requests.exceptions.RequestException as e:
@@ -95,7 +90,6 @@ def main(page: ft.Page):
         except Exception as e:
             output.value = f"Error: {str(e)}"
 
-        # Update the UI
         page.update()
 
     save_button = ft.ElevatedButton(text="Save",on_click=save_preferences)
