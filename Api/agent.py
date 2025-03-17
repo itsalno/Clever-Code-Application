@@ -6,10 +6,6 @@ import re
 
 
 def extract_language(input: str) -> str:
-    """
-    Extract the target language from the user's input.
-    """
-
     match = re.search(r"(in|to|using)\s+(\w+)", input, re.IGNORECASE)
     if match:
         return match.group(2).lower()

@@ -148,26 +148,76 @@ def main(page: ft.Page):
 
     send_button.on_click = send_input
 
-    page.add(
-        ft.Column([
-            ft.Text("Clever Code App", size=20),
-            ft.Row([
-                ft.Column([ft.Text("Generating language", size=14), generating_language_dropdown]),
-                ft.Column([ft.Text("Translating language", size=14), translating_language_dropdown]),
-                ft.Column([indentation_input]),
-                ft.Column([naming_convention_input,save_button])
-            ]),
-            user_input,
-            send_button,
-            ft.Container(
-                content=scrollable_output,
-                border=ft.border.all(1, ft.Colors.GREY_400),
-                padding=10,
-                expand=True,
-            ),
-        ],
-        expand=True,
-        )
+    app_container = ft.Container(
+        content=ft.Column(
+            [
+                ft.Text("Clever Code App", size=20, text_align="center",color="black"),
+                ft.Divider(color="white"),
+                ft.Column(
+                    [
+                        ft.Row(
+                            [
+                                ft.Column(
+                                    [
+                                        ft.Text("Generating language", size=14,color="black"),
+                                        generating_language_dropdown,
+                                    ],
+                                    width=200,
+                                ),
+                                ft.Column(
+                                    [
+                                        ft.Text("Translating language", size=14,color="black"),
+                                        translating_language_dropdown,
+                                    ],
+                                    width=200,
+                                ),
+                            ]
+                        ),
+                        ft.Row(
+                            [
+                                ft.Column(
+                                    [
+                                        indentation_input,
+                                    ],
+                                    width=300,
+                                ),
+                                ft.Column(
+                                    [
+                                        naming_convention_input,
+
+                                    ],
+                                    width=300,
+                                ),
+                                ft.Column(
+                                    [
+                                        save_button,
+
+                                    ],
+                                    width=300,
+                                ),
+                            ]
+                        ),
+                    ]
+                ),
+                user_input,
+                send_button,
+                ft.Container(
+                    content=scrollable_output,
+                    border=ft.border.all(1, 'white'),
+                    padding=10,
+                    expand=True,
+                ),
+            ],
+            expand=True,
+        ),
+        padding=20,
+        border_radius=10,
+        bgcolor=ft.colors.WHITE,
+        width=800,
+        height=600,
     )
+
+    page.add(app_container)
+
 
 ft.app(target=main)

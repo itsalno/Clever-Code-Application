@@ -19,10 +19,10 @@ ollama run llama3.2
 ollama run deepseek-r1:1.5b
 
 #Run the Api
-python run Endpoints.py
+uvicorn Endpoints:app --reload
 
 #Run the Flet
-
+flet UI.py
 ```
 ## Tips
 When everything is up and running you can test the different functions.
