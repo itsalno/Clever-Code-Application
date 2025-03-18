@@ -1,12 +1,8 @@
 flet~=0.27.5
-ollama~=0.4.7
 requests~=2.32.3
+langchain-core~=0.3.41
+pydantic~=2.10.6
 uvicorn~=0.34.0
 fastapi~=0.115.11
-pydantic~=2.10.6
-langchain.chains
-langchain.prompts
-langchain~=0.3.20
-langchain-core~=0.3.41
-langchain-community~=0.3.19
+black~=25.1.0
 Pygments~=2.19.1
